@@ -1,0 +1,1 @@
+worker: python the_sheriff.py
