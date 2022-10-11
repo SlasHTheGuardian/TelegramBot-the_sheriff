@@ -1,14 +1,11 @@
 import telebot
-import speech_recognition as sr
 from the_sheriff_text_processing import *
-import os
+from the_sheriff_voice_processing import *
 
 
 TOKEN = '5604845141:AAGr6654SGj77dS9kC5qJaPuIzOza2Xix1I'
 murl = f'https://api.telegram.org/bot{TOKEN}'
 bot = telebot.TeleBot(TOKEN)
-r = sr.Recognizer()
-language = 'ru_RU'
 duel_started = False
 gunfight_answer = 0
 
@@ -54,23 +51,7 @@ def handle_docs_photo(message):
 
 @bot.message_handler(content_types=['voice'])
 def voice_processing(message):
-    def recognise(filename):
-        with sr.AudioFile(filename) as source:
-            audio_text = r.listen(source)
-            try:
-                text = r.recognize_google(audio_text, language=language)
-                return text
-            except:
-                return "Sorry.. run again..."
-    file_name_ogg = "./voice/voicemessage.ogg"
-    file_name_wav = "./voice/voicemessage.wav"
-    voice_info = bot.get_file(message.voice.file_id)
-    voice_data = bot.download_file(voice_info.file_path)
-    with open(file_name_ogg, 'wb') as new_file:
-        new_file.write(voice_data)
-    os.system("ffmpeg -y -i " + file_name_ogg + "  " + file_name_wav)
-    phrase = random.choice(phrases["voice_handling"]) + '"' + recognise(file_name_wav) + '"'
-    bot.reply_to(message, phrase)
+    voice_to_text(bot, message)
 
 
 bot.polling(timeout=60)
