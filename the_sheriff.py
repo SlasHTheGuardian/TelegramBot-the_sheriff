@@ -22,7 +22,7 @@ def random_reaction(n, m, message, phrase, reply=True):
             bot.send_message(message.chat.id, phrase)
 
 
-with open("phrases.json", "r",  encoding='utf-8') as phrases:
+with open("data/phrases.json", "r", encoding='utf-8') as phrases:
     phrases = json.load(phrases)
 
 
@@ -69,7 +69,7 @@ def voice_processing(message):
     with open(file_name_ogg, 'wb') as new_file:
         new_file.write(voice_data)
     os.system("ffmpeg -y -i " + file_name_ogg + "  " + file_name_wav)
-    phrase = recognise(file_name_wav)
+    phrase = random.choice(phrases["voice_handling"]) + '"' + recognise(file_name_wav) + '"'
     bot.reply_to(message, phrase)
 
 

@@ -5,7 +5,7 @@ import random
 import time
 
 
-with open("phrases.json", "r",  encoding='utf-8') as phrases:
+with open("data/phrases.json", "r", encoding='utf-8') as phrases:
     phrases = json.load(phrases)
 
 
@@ -127,7 +127,6 @@ def show_statistics(bot, message):
                     statistics_gunfight = item["statistics_gunfight"]
                     phrase = "Ваши данные:" + str(statistics_gunfight)
                     bot.reply_to(message, phrase)
-
 
 
 def duel(bot, message, duel_started, gunfight_answer):

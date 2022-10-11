@@ -23,7 +23,7 @@ def load_citizens_info():
 
 
 def save_citizens_info(citizens_info):
-    with open('data/citizens_info.json', "w", encoding='utf-8') as citizens_info_db:
+    with open(citizens_info_path, "w", encoding='utf-8') as citizens_info_db:
         json.dump(citizens_info, citizens_info_db, sort_keys=True, indent=4)
 
 
