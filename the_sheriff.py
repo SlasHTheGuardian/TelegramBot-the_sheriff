@@ -40,6 +40,7 @@ def echo(message):
         tag_everyone(bot, message, current_time)
         check_person(bot, message)
         remove_player_info(bot, message)
+        show_statistics(bot, message)
 
     analysing_msg()
 
@@ -51,30 +52,25 @@ def handle_docs_photo(message):
     random_reaction(1, 7, message, phrase)
 
 
-# @bot.message_handler(content_types=['voice'])
-# def voice_processing(message):
-#     def recognise(filename):
-#         with sr.AudioFile(filename) as source:
-#             audio_text = r.listen(source)
-#             try:
-#                 text = r.recognize_google(audio_text, language=language)
-#                 print('Converting audio transcripts into text ...')
-#                 print(text)
-#                 return text
-#             except:
-#                 print('Sorry.. run again...')
-#                 return "Sorry.. run again..."
-#     file_name_ogg = "./voice/voicemessage.ogg"
-#     file_name_wav = "./voice/voicemessage.wav"
-#     voice_info = bot.get_file(message.voice.file_id)
-#     voice_data = bot.download_file(voice_info.file_path)
-#     with open(file_name_ogg, 'wb') as new_file:
-#         new_file.write(voice_data)
-#     os.system("ffmpeg -i " + file_name_ogg + "  " + file_name_wav)
-#     phrase = recognise(file_name_wav)
-#     bot.reply_to(message, phrase)
-#     os.remove(file_name_ogg)
-#     os.remove(file_name_wav)
+@bot.message_handler(content_types=['voice'])
+def voice_processing(message):
+    def recognise(filename):
+        with sr.AudioFile(filename) as source:
+            audio_text = r.listen(source)
+            try:
+                text = r.recognize_google(audio_text, language=language)
+                return text
+            except:
+                return "Sorry.. run again..."
+    file_name_ogg = "./voice/voicemessage.ogg"
+    file_name_wav = "./voice/voicemessage.wav"
+    voice_info = bot.get_file(message.voice.file_id)
+    voice_data = bot.download_file(voice_info.file_path)
+    with open(file_name_ogg, 'wb') as new_file:
+        new_file.write(voice_data)
+    os.system("ffmpeg -y -i " + file_name_ogg + "  " + file_name_wav)
+    phrase = recognise(file_name_wav)
+    bot.reply_to(message, phrase)
 
 
 bot.polling(timeout=60)

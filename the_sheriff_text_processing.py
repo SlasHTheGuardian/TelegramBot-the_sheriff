@@ -113,6 +113,23 @@ def tag_everyone(bot, message, current_time):
             bot.send_message(message.chat.id, phrase)
 
 
+def show_statistics(bot, message):
+    msg = message.text.lower()
+    sender_id = message.from_user.id
+    city_id = message.chat.id
+    if is_mentioned(message) and is_in_the_city(message):
+        statistics_regular = "мои данные"
+        statistics_in_message = re.search(statistics_regular, msg)
+        if statistics_in_message:
+            citizens_info = load_citizens_info()
+            for item in citizens_info:
+                if item["id"] == sender_id and item["city_id"] == city_id:
+                    statistics_gunfight = item["statistics_gunfight"]
+                    phrase = "Ваши данные:" + str(statistics_gunfight)
+                    bot.reply_to(message, phrase)
+
+
+
 def duel(bot, message, duel_started, gunfight_answer):
     msg = message.text.lower()
     sender_id = message.from_user.id
