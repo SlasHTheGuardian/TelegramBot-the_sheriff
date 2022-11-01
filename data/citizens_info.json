@@ -1,22 +1,2 @@
 [
-    {
-        "city_id": -855536037,
-        "id": 459180714,
-        "name": "\u0418\u0433\u043e\u0440\u044c",
-        "statistics_gunfight": {
-            "misses": 0,
-            "wins": 0
-        },
-        "username": "tg_slsh"
-    },
-    {
-        "city_id": 459180714,
-        "id": 459180714,
-        "name": "\u0418\u0433\u043e\u0440\u044c",
-        "statistics_gunfight": {
-            "misses": 0,
-            "wins": 1
-        },
-        "username": "tg_slsh"
-    }
 ]

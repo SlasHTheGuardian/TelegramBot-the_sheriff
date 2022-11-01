@@ -3,7 +3,7 @@ from the_sheriff_text_processing import *
 from the_sheriff_voice_processing import *
 
 
-TOKEN = '5604845141:AAGr6654SGj77dS9kC5qJaPuIzOza2Xix1I'
+TOKEN = 'the_TOKEN_should_be_secret'
 murl = f'https://api.telegram.org/bot{TOKEN}'
 bot = telebot.TeleBot(TOKEN)
 duel_started = False
